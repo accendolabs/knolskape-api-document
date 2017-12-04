@@ -219,6 +219,17 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#api-flow" class="toc-h1 toc-link" data-title="API Flow">API Flow</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#header-parameters" class="toc-h2 toc-link" data-title="Header Parameters">Header Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#simulation" class="toc-h1 toc-link" data-title="Simulation">Simulation</a>
               <ul class="toc-list-h2">
                   <li>
@@ -246,7 +257,56 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Knolskape API! You can use our API to access simulations API endpoints.</p>
+<p>Welcome to the Knolskape API!<br />
+The main goal of this documentaion is to get Knolskape and Accendo on the same page regard this API Consuming.<br />
+<strong>so feel free to change whatever seems convenient to you.</strong><br />
+kindly make sure to fill the (to be filled by Knolskape) sections.<br/> and feel free to add (to be filled by Accendo) as well.</p>
+<h1 id='api-flow'>API Flow</h1>
+<p>In Knolskape, you will interact with Simulations and Users(Candidates).
+A Simulations is a set of sevecies. The relationship is, Simulations has many Users.</p>
+
+<p>The API usage flow will kicks in as per below:</p>
+
+<p>1) Using the <a href="#get-all-simulation"> Get All Simulation Api</a> Accendo pulls all Services.<br />
+2) Setup project on accendo site by selecting services and adding users to the project.<br />
+3) Using the <a href="#register-users"> Register Users Api</a> Accendo registers users by projectId , users list and services list.<br />
+4) User logs in to accendo site, Accendo redirects the user to Knolskape site - the simulation page- using the links from <a href="#register-users"> Register Users Api</a> response.<br />
+5) User completes the simulation.<br />
+6) Knolskape sends a server-side update (Simulation Completion) to Accendo site.<br /> 
+    using the Callback URL provided by accendo during user registration.<br />
+7) Knolskape redirects (Simulation Completion) the user back to Accendo site.<br /> 
+    using the Redirect URL provided by accendo during user registration.<br />
+8) Accendo can pulls the status and scores using <br /> 
+    <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a> or <br /> <a href="#get-simulation-status-and-scores-project-level"> Get Simulation Status and Scores - Project level </a> .<br /></p>
+<h1 id='authentication'>Authentication</h1>
+<p><strong>(to be filled by knolskape)</strong></p>
+
+<blockquote>
+<p>Example Header:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"appId"</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"appSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='header-parameters'>Header Parameters</h3>
+<table><thead>
+<tr>
+<th>-------</th>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>appId</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>appSecret</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+</tbody></table>
 <h1 id='simulation'>Simulation</h1><h2 id='get-all-simulation'>Get All Simulation</h2>
 <blockquote>
 <p>Example Response:</p>
@@ -278,7 +338,7 @@
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td>-----------</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='register-users'>Register Users</h2>
@@ -289,7 +349,7 @@
   </span><span class="s2">"projectId"</span><span class="p">:</span><span class="w"> </span><span class="mi">125</span><span class="p">,</span><span class="w">
   </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User1"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accendo"</span><span class="p">,</span><span class="w">
@@ -311,7 +371,7 @@
     </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ilead"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token1}"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token1}"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -321,7 +381,7 @@
     </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cq-v2"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token2}"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token2}"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -341,25 +401,29 @@
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td>-----------</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h3 id='request-parameters'>Request Parameters</h3>
 <table><thead>
 <tr>
+<th>-------</th>
 <th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>mandatory</td>
 <td>projectId</td>
 <td>project id from accendo side.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>users</td>
 <td>list of users to be registered. (refer to the table below)</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>services</td>
 <td>list of services names to register the users to, You can get the service names of simulation in Get All Services api.</td>
 </tr>
@@ -367,51 +431,67 @@
 
 <table><thead>
 <tr>
+<th>-------</th>
 <th>Users</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>userId</td>
+<td>mandatory</td>
+<td>userId*</td>
 <td>user id from accendo side.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>email</td>
 <td>user email.</td>
 </tr>
 <tr>
+<td>optional</td>
 <td>firstName</td>
 <td>user first name.</td>
 </tr>
 <tr>
+<td>optional</td>
 <td>lastName</td>
 <td>user last name.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>redirectUrl</td>
 <td>redirect url for redirecting back to accendo after completion or the browser session ends.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>callbackUrl</td>
 <td>callback url for knolskape to call after user <strong>complete</strong> a simulation. (refer to the Callback Parameters table below)</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+using <b>userId</b> instead of <b>tokenId</b> to identify the user. 
+since we are using the tokenId to give access to simulations so it's better not to expose this tokenId,
+and use another identifier which can't be used to access any simulations (like the userId).
+</aside>
 <h3 id='callback-parameters'>Callback Parameters</h3>
 <p>callback is a post call to the callback url.</p>
 
 <table><thead>
 <tr>
+<th>-------</th>
 <th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>mandatory</td>
 <td>serviceName</td>
 <td>service name that user completed.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>Scores</td>
-<td>list of scores.</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
@@ -483,10 +563,34 @@
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td>-----------</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h3 id='uri-parameters'>URI Parameters</h3>
+<table><thead>
+<tr>
+<th>-------</th>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>serviceName</td>
+<td>service name, You can get the service names of simulation in Get All Services api.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>projectIid</td>
+<td>project id from accendo side.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>userId</td>
+<td>user id from accendo side.</td>
+</tr>
+</tbody></table>
+<h3 id='available-status-list'>Available Status list</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -494,16 +598,68 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>serviceName</td>
-<td>service name, You can get the service names of simulation in Get All Services api.</td>
+<td>STARTED</td>
+<td>user started the simulation but not completed yet.</td>
 </tr>
 <tr>
-<td>projectIid</td>
-<td>project id from accendo side.</td>
+<td>NOT_STARTED</td>
+<td>user rigsterd to simulation but not started yet.</td>
 </tr>
 <tr>
-<td>userId</td>
-<td>user id from accendo side.</td>
+<td>COMPLETED</td>
+<td>user completed the simulation.</td>
+</tr>
+</tbody></table>
+<h3 id='response-parameters'>Response  Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>metricsData</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>status</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>avgAdoption</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>progress</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>noOfConversion</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>aggregateScore</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>percentile</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>competency</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>rank</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>startedAt</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td>completedAt</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h2 id='get-simulation-status-and-scores-project-level'>Get Simulation Status and Scores - Project level</h2>
@@ -587,21 +743,24 @@
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td>-----------</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 <h3 id='uri-parameters-2'>URI Parameters</h3>
 <table><thead>
 <tr>
+<th>-------</th>
 <th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>mandatory</td>
 <td>serviceName</td>
 <td>service name, You can get the service names of simulation in Get All Services api.</td>
 </tr>
 <tr>
+<td>mandatory</td>
 <td>projectIid</td>
 <td>project id from accendo side.</td>
 </tr>
