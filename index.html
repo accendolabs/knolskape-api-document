@@ -251,6 +251,17 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#simulations-completion" class="toc-h1 toc-link" data-title="Simulations Completion">Simulations Completion</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#redirect-url" class="toc-h2 toc-link" data-title="Redirect Url">Redirect Url</a>
+                  </li>
+                  <li>
+                    <a href="#callback-url" class="toc-h2 toc-link" data-title="Callback Url">Callback Url</a>
+                  </li>
+              </ul>
+          </li>
       </div>
     </div>
     <div class="page-wrapper">
@@ -473,27 +484,6 @@ using <b>userId</b> instead of <b>tokenId</b> to identify the user.
 since we are using the tokenId to give access to simulations so it's better not to expose this tokenId,
 and use another identifier which can't be used to access any simulations (like the userId).
 </aside>
-<h3 id='callback-parameters'>Callback Parameters</h3>
-<p>callback is a post call to the callback url.</p>
-
-<table><thead>
-<tr>
-<th>-------</th>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>mandatory</td>
-<td>serviceName</td>
-<td>service name that user completed.</td>
-</tr>
-<tr>
-<td>mandatory</td>
-<td>Scores</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-</tbody></table>
 <h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
 <blockquote>
 <p>Example Response:</p>
@@ -763,6 +753,46 @@ and use another identifier which can't be used to access any simulations (like t
 <td>mandatory</td>
 <td>projectIid</td>
 <td>project id from accendo side.</td>
+</tr>
+</tbody></table>
+<h1 id='simulations-completion'>Simulations Completion</h1><h2 id='redirect-url'>Redirect Url</h2>
+<p><strong>(to be filled by Accendo)</strong></p>
+<h2 id='callback-url'>Callback Url</h2>
+<p>callback is a post call to the callback url provided by accendo during user registration using the <a href="#register-users"> Register Users Api</a>.</p>
+
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="s2">"iLead"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Scores"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='callback-parameters'>Callback Parameters</h3>
+<table><thead>
+<tr>
+<th>-------</th>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>serviceName</td>
+<td>service name that user completed.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>Scores</td>
+<td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
 
