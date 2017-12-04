@@ -1,0 +1,615 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#simulation" class="toc-h1 toc-link" data-title="Simulation">Simulation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-simulation" class="toc-h2 toc-link" data-title="Get All Simulation">Get All Simulation</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#register-users" class="toc-h2 toc-link" data-title="Register Users">Register Users</a>
+                  </li>
+                  <li>
+                    <a href="#get-simulation-status-and-scores-user-level" class="toc-h2 toc-link" data-title="Get Simulation Status and Scores - User level">Get Simulation Status and Scores - User level</a>
+                  </li>
+                  <li>
+                    <a href="#get-simulation-status-and-scores-project-level" class="toc-h2 toc-link" data-title="Get Simulation Status and Scores - Project level">Get Simulation Status and Scores - Project level</a>
+                  </li>
+              </ul>
+          </li>
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Knolskape API! You can use our API to access simulations API endpoints.</p>
+<h1 id='simulation'>Simulation</h1><h2 id='get-all-simulation'>Get All Simulation</h2>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bybhtml"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"simulationName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BYB V2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cq-v2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"simulationName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ChangeQuest v2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ileadhtml"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"simulationName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iLead V2"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This gives list of simulations enabled for accendo platform.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api-test.knolskape.com/ct/simulations</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>platformId</td>
+<td>-----------</td>
+</tr>
+</tbody></table>
+<h1 id='users'>Users</h1><h2 id='register-users'>Register Users</h2>
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"projectId"</span><span class="p">:</span><span class="w"> </span><span class="mi">125</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accendo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="s2">"http://kaliber.com/redirect"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="s2">"http://kaliber.com/callback?token=f8XvlPhHpBcYVg7Pv9jBXVDDejNLyO12EgqWTomwh3th4tpYFyiORforoeqz"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"ilead"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cq-v2"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ilead"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token1}"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token1}"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cq-v2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token2}"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token2}"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This returns the list of links with custom token in it. These links can be clicked by the users directly to access the simulations.So if a project has M tools(services) and N users given in payload, it will return M*N links in response json. The services inside payload is array of service names choosen for this given project.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://api-test.knolskape.com/ct/simulations/register</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>platformId</td>
+<td>-----------</td>
+</tr>
+</tbody></table>
+<h3 id='request-parameters'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>projectId</td>
+<td>project id from accendo side.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>list of users to be registered. (refer to the table below)</td>
+</tr>
+<tr>
+<td>services</td>
+<td>list of services names to register the users to, You can get the service names of simulation in Get All Services api.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Users</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>user id from accendo side.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>user email.</td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>user first name.</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>user last name.</td>
+</tr>
+<tr>
+<td>redirectUrl</td>
+<td>redirect url for redirecting back to accendo after completion or the browser session ends.</td>
+</tr>
+<tr>
+<td>callbackUrl</td>
+<td>callback url for knolskape to call after user <strong>complete</strong> a simulation. (refer to the Callback Parameters table below)</td>
+</tr>
+</tbody></table>
+<h3 id='callback-parameters'>Callback Parameters</h3>
+<p>callback is a post call to the callback url.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>serviceName</td>
+<td>service name that user completed.</td>
+</tr>
+<tr>
+<td>Scores</td>
+<td>list of scores.</td>
+</tr>
+</tbody></table>
+<h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rank"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rank"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"noOfConversion"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No. of Conversions"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aggregateScore"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weighted Average Adoption"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"percentile"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Average Adoption (percentile)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"avgAdoption"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Average Adoption"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"progress"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Progress (in days)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timeLeft"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Remaining (90 mins)"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"metricsData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noOfConversion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}/user/{{userId}}?platformId=2</code></p>
+
+<p>This endpoint retrieves Simulation Status and Scores for a specific user.</p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>platformId</td>
+<td>-----------</td>
+</tr>
+</tbody></table>
+<h3 id='uri-parameters'>URI Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>serviceName</td>
+<td>service name, You can get the service names of simulation in Get All Services api.</td>
+</tr>
+<tr>
+<td>projectIid</td>
+<td>project id from accendo side.</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>user id from accendo side.</td>
+</tr>
+</tbody></table>
+<h2 id='get-simulation-status-and-scores-project-level'>Get Simulation Status and Scores - Project level</h2>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rank"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rank"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"noOfConversion"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No. of Conversions"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aggregateScore"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weighted Average Adoption"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"percentile"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Average Adoption (percentile)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"avgAdoption"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Average Adoption"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"progress"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Progress (in days)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timeLeft"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Remaining (90 mins)"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"metricsData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oBk4PdXHcbGXWcKuNCMnFWCUTTpPnxoA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZywFBkgDmQtaS8uxB9KaWfUGZcodzCEq"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noOfConversion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}?platformId=2</code></p>
+
+<p>This endpoint retrieves Simulation Status and Scores for all Users in a specific Project. </p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>platformId</td>
+<td>-----------</td>
+</tr>
+</tbody></table>
+<h3 id='uri-parameters-2'>URI Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>serviceName</td>
+<td>service name, You can get the service names of simulation in Get All Services api.</td>
+</tr>
+<tr>
+<td>projectIid</td>
+<td>project id from accendo side.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
