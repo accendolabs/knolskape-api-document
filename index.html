@@ -268,26 +268,25 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Knolskape API!<br />
-The main goal of this documentaion is to get Knolskape and Accendo on the same page regard this API Consuming.<br />
-<strong>so feel free to change whatever seems convenient to you.</strong><br />
-kindly make sure to fill the (to be filled by Knolskape) sections.<br/> and feel free to add (to be filled by Accendo) as well.</p>
+<p>Welcome to the Knolskape API!<br/>
+The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/> <strong>Do feel free to change whatever seems convenient to you.</strong><br/>
+Kindly ensure to fill in the “(to be filled by Knolskape)” sections 
+and feel free to add “(to be filled by Accendo)” as well.</p>
 <h1 id='api-flow'>API Flow</h1>
-<p>In Knolskape, you will interact with Simulations and Users(Candidates).
-A Simulations is a set of sevecies. The relationship is, Simulations has many Users.</p>
+<p>In Knolskape, you will interact with Simulations and Users (Candidates). Simulations are a set of services. The relationship between Simulations and Users is that <strong>a simulation will have many users.</strong> </p>
 
-<p>The API usage flow will kicks in as per below:</p>
+<p>Kindly refer below for the flow of API usage:</p>
 
-<p>1) Using the <a href="#get-all-simulation"> Get All Simulation Api</a> Accendo pulls all Services.<br />
-2) Setup project on accendo site by selecting services and adding users to the project.<br />
-3) Using the <a href="#register-users"> Register Users Api</a> Accendo registers users by projectId , users list and services list.<br />
-4) User logs in to accendo site, Accendo redirects the user to Knolskape site - the simulation page- using the links from <a href="#register-users"> Register Users Api</a> response.<br />
-5) User completes the simulation.<br />
+<p>1) Using <a href="#get-all-simulation"> Get All Simulation Api</a>, Accendo pulls all Services.<br />
+2) Set up a project on Accendo site by selecting available Services and adding Users to the project.<br />
+3) Using <a href="#register-users"> Register Users API</a>, Accendo registers Users by projectId, users list and services list.<br />
+4) Users log in to Accendo site, Accendo redirects Users to Knolskape site (the simulation page) using the links from <a href="#register-users"> Register Users API</a> response.<br />
+5) Users complete the Simulations.<br />
 6) Knolskape sends a server-side update (Simulation Completion) to Accendo site.<br /> 
     using the Callback URL provided by accendo during user registration.<br />
-7) Knolskape redirects (Simulation Completion) the user back to Accendo site.<br /> 
+7) Knolskape redirects (Simulation Completion) Users back to Accendo site <br /> 
     using the Redirect URL provided by accendo during user registration.<br />
-8) Accendo can pulls the status and scores using <br /> 
+8) Accendo can pull the status and scores using <br /> 
     <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a> or <br /> <a href="#get-simulation-status-and-scores-project-level"> Get Simulation Status and Scores - Project level </a> .<br /></p>
 <h1 id='authentication'>Authentication</h1>
 <p><strong>(to be filled by knolskape)</strong></p>
@@ -319,6 +318,8 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
 </tr>
 </tbody></table>
 <h1 id='simulation'>Simulation</h1><h2 id='get-all-simulation'>Get All Simulation</h2>
+<p>This provides a list of Simulations that have been enabled for Accendo platform. </p>
+
 <blockquote>
 <p>Example Response:</p>
 </blockquote>
@@ -336,9 +337,7 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
       </span><span class="s2">"simulationName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iLead V2"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This gives list of simulations enabled for accendo platform.</p>
-<h3 id='http-request'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://api-test.knolskape.com/ct/simulations</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
@@ -400,7 +399,7 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This returns the list of links with custom token in it. These links can be clicked by the users directly to access the simulations.So if a project has M tools(services) and N users given in payload, it will return M*N links in response json. The services inside payload is array of service names choosen for this given project.</p>
+<p>This returns the list of links with custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response json. The Services inside payload is an array of service names chosen for this given project.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST https://api-test.knolskape.com/ct/simulations/register</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
@@ -436,9 +435,13 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
 <tr>
 <td>mandatory</td>
 <td>services</td>
-<td>list of services names to register the users to, You can get the service names of simulation in Get All Services api.</td>
+<td>list of services names to register the users to, service names of simulation can be acquired in Get All Services API.</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are using the tokenId to give access to Simulations, it's better not to expose this tokenId and use another identifier which can't be used to access any Simulations (like the userId).
+</aside>
 
 <table><thead>
 <tr>
@@ -449,7 +452,7 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
 </thead><tbody>
 <tr>
 <td>mandatory</td>
-<td>userId*</td>
+<td>userId</td>
 <td>user id from accendo side.</td>
 </tr>
 <tr>
@@ -470,21 +473,17 @@ A Simulations is a set of sevecies. The relationship is, Simulations has many Us
 <tr>
 <td>mandatory</td>
 <td>redirectUrl</td>
-<td>redirect url for redirecting back to accendo after completion or the browser session ends.</td>
+<td>redirect url for redirecting back to accendo after completion or when the browser session ends.</td>
 </tr>
 <tr>
 <td>mandatory</td>
 <td>callbackUrl</td>
-<td>callback url for knolskape to call after user <strong>complete</strong> a simulation. (refer to the Callback Parameters table below)</td>
+<td>callback url for knolskape to call after user <strong>completes</strong> a simulation. (refer the Callback Parameters table below)</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">
-using <b>userId</b> instead of <b>tokenId</b> to identify the user. 
-since we are using the tokenId to give access to simulations so it's better not to expose this tokenId,
-and use another identifier which can't be used to access any simulations (like the userId).
-</aside>
 <h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
+<p>This endpoint retrieves Simulation Status and Scores for a specific user.</p>
+
 <blockquote>
 <p>Example Response:</p>
 </blockquote>
@@ -542,8 +541,6 @@ and use another identifier which can't be used to access any simulations (like t
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}/user/{{userId}}?platformId=2</code></p>
-
-<p>This endpoint retrieves Simulation Status and Scores for a specific user.</p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -567,7 +564,7 @@ and use another identifier which can't be used to access any simulations (like t
 <tr>
 <td>mandatory</td>
 <td>serviceName</td>
-<td>service name, You can get the service names of simulation in Get All Services api.</td>
+<td>service name, which can be acquired in Get All Services API.</td>
 </tr>
 <tr>
 <td>mandatory</td>
@@ -589,15 +586,15 @@ and use another identifier which can't be used to access any simulations (like t
 </thead><tbody>
 <tr>
 <td>STARTED</td>
-<td>user started the simulation but not completed yet.</td>
+<td>user has started the simulation but has yet to complete.</td>
 </tr>
 <tr>
 <td>NOT_STARTED</td>
-<td>user rigsterd to simulation but not started yet.</td>
+<td>user has been registered to the simulation but has yet to start the simulation.</td>
 </tr>
 <tr>
 <td>COMPLETED</td>
-<td>user completed the simulation.</td>
+<td>user has completed the simulation.</td>
 </tr>
 </tbody></table>
 <h3 id='response-parameters'>Response  Parameters</h3>
@@ -653,6 +650,8 @@ and use another identifier which can't be used to access any simulations (like t
 </tr>
 </tbody></table>
 <h2 id='get-simulation-status-and-scores-project-level'>Get Simulation Status and Scores - Project level</h2>
+<p>This endpoint retrieves Simulation Status and Scores for all users in a specific project. </p>
+
 <blockquote>
 <p>Example Response:</p>
 </blockquote>
@@ -722,8 +721,6 @@ and use another identifier which can't be used to access any simulations (like t
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}?platformId=2</code></p>
-
-<p>This endpoint retrieves Simulation Status and Scores for all Users in a specific Project. </p>
 <h3 id='query-parameters-4'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -747,7 +744,7 @@ and use another identifier which can't be used to access any simulations (like t
 <tr>
 <td>mandatory</td>
 <td>serviceName</td>
-<td>service name, You can get the service names of simulation in Get All Services api.</td>
+<td>service name, which can be acquired in Get All Services API.</td>
 </tr>
 <tr>
 <td>mandatory</td>
@@ -758,7 +755,7 @@ and use another identifier which can't be used to access any simulations (like t
 <h1 id='simulations-completion'>Simulations Completion</h1><h2 id='redirect-url'>Redirect Url</h2>
 <p><strong>(to be filled by Accendo)</strong></p>
 <h2 id='callback-url'>Callback Url</h2>
-<p>callback is a post call to the callback url provided by accendo during user registration using the <a href="#register-users"> Register Users Api</a>.</p>
+<p>Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.</p>
 
 <blockquote>
 <p>Example Request:</p>
@@ -787,7 +784,7 @@ and use another identifier which can't be used to access any simulations (like t
 <tr>
 <td>mandatory</td>
 <td>serviceName</td>
-<td>service name that user completed.</td>
+<td>name of service that user has completed</td>
 </tr>
 <tr>
 <td>mandatory</td>
