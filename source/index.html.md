@@ -8,27 +8,27 @@ search: true
 
 # Introduction
 
-Welcome to the Knolskape API!<br />
-The main goal of this documentaion is to get Knolskape and Accendo on the same page regard this API Consuming.<br />
-**so feel free to change whatever seems convenient to you.**<br />
-kindly make sure to fill the (to be filled by Knolskape) sections.<br/> and feel free to add (to be filled by Accendo) as well.
+Welcome to the Knolskape API!<br/>
+The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/> **Do feel free to change whatever seems convenient to you.**<br/>
+Kindly ensure to fill in the “(to be filled by Knolskape)” sections 
+and feel free to add “(to be filled by Accendo)” as well.
+
 
 # API Flow
-In Knolskape, you will interact with Simulations and Users(Candidates).
-A Simulations is a set of sevecies. The relationship is, Simulations has many Users.
+In Knolskape, you will interact with Simulations and Users (Candidates). Simulations are a set of services. The relationship between Simulations and Users is that **a simulation will have many users.** 
 
-The API usage flow will kicks in as per below:
+Kindly refer below for the flow of API usage:
 
-1) Using the <a href="#get-all-simulation"> Get All Simulation Api</a> Accendo pulls all Services.<br />
-2) Setup project on accendo site by selecting services and adding users to the project.<br />
-3) Using the <a href="#register-users"> Register Users Api</a> Accendo registers users by projectId , users list and services list.<br />
-4) User logs in to accendo site, Accendo redirects the user to Knolskape site - the simulation page- using the links from <a href="#register-users"> Register Users Api</a> response.<br />
-5) User completes the simulation.<br />
+1) Using <a href="#get-all-simulation"> Get All Simulation Api</a>, Accendo pulls all Services.<br />
+2) Set up a project on Accendo site by selecting available Services and adding Users to the project.<br />
+3) Using <a href="#register-users"> Register Users API</a>, Accendo registers Users by projectId, users list and services list.<br />
+4) Users log in to Accendo site, Accendo redirects Users to Knolskape site (the simulation page) using the links from <a href="#register-users"> Register Users API</a> response.<br />
+5) Users complete the Simulations.<br />
 6) Knolskape sends a server-side update (Simulation Completion) to Accendo site.<br /> 
     using the Callback URL provided by accendo during user registration.<br />
-7) Knolskape redirects (Simulation Completion) the user back to Accendo site.<br /> 
+7) Knolskape redirects (Simulation Completion) Users back to Accendo site <br /> 
     using the Redirect URL provided by accendo during user registration.<br />
-8) Accendo can pulls the status and scores using <br /> 
+8) Accendo can pull the status and scores using <br /> 
     <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a> or <br /> <a href="#get-simulation-status-and-scores-project-level"> Get Simulation Status and Scores - Project level </a> .<br />
 # Authentication
 
@@ -54,6 +54,8 @@ mandatory    | appSecret  | **(to be filled by knolskape)**
 
 ## Get All Simulation
 
+This provides a list of Simulations that have been enabled for Accendo platform. 
+
 > Example Response:
 
 ```json
@@ -72,8 +74,6 @@ mandatory    | appSecret  | **(to be filled by knolskape)**
   }
 ]
 ```
-
-This gives list of simulations enabled for accendo platform.
 
 ### HTTP Request
 
@@ -97,12 +97,11 @@ platformId | **(to be filled by knolskape)**
   "projectId": 125,
   "users": [
     {
-      "userId":1,
       "email": "accendouser1@mailinator.com",
       "firstName": "User1",
       "lastName": "Accendo",
-      "redirectUrl":"http://kaliber.com/redirect",
-      "callbackUrl":"http://kaliber.com/callback?token=f8XvlPhHpBcYVg7Pv9jBXVDDejNLyO12EgqWTomwh3th4tpYFyiORforoeqz"
+      "redirectUrl":"{REDIRECT_URL}",
+      "callbackUrl":"{CALLBACK_UR}"
     }
   ],
   "services": [
@@ -139,7 +138,7 @@ platformId | **(to be filled by knolskape)**
 ]
 ```
 
-This returns the list of links with custom token in it. These links can be clicked by the users directly to access the simulations.So if a project has M tools(services) and N users given in payload, it will return M*N links in response json. The services inside payload is array of service names choosen for this given project.
+This returns the list of links with custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response json. The Services inside payload is an array of service names chosen for this given project.
 
 ### HTTP Request
 
@@ -157,26 +156,33 @@ platformId | **(to be filled by knolskape)**
 ---------   | ---------   | -----------
 mandatory    | projectId   | project id from accendo side.
 mandatory    | users       | list of users to be registered. (refer to the table below)
-mandatory    | services    | list of services names to register the users to, You can get the service names of simulation in Get All Services api.
+mandatory    | services    | list of services names to register the users to, service names of simulation can be acquired in Get All Services API.
+
+<aside class="notice">
+Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
+<a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a>.
+</aside>
 
 -------     | Users       | Description
 ---------   | ---------   | -----------
-mandatory   | userId*     | user id from accendo side.
 mandatory   | email       | user email.
 optional    | firstName   | user first name.
 optional    | lastName    | user last name.
-mandatory   | redirectUrl | redirect url for redirecting back to accendo after completion or the browser session ends.
-mandatory   | callbackUrl | callback url for knolskape to call after user **complete** a simulation. (refer to the Callback Parameters table below)
+mandatory   | redirectUrl | redirect url for redirecting back to accendo after completion or when the browser session ends.
+mandatory   | callbackUrl | callback url for knolskape to call after user **completes** a simulation. (refer the Callback Parameters table below)
 
-<aside class="notice">
-using <b>userId</b> instead of <b>tokenId</b> to identify the user. 
-since we are using the tokenId to give access to simulations so it's better not to expose this tokenId,
-and use another identifier which can't be used to access any simulations (like the userId).
-</aside>
+### Response Fields
 
-
+-------     | Users       | Description
+---------   | ---------   | -----------
+mandatory   | service     | service name
+mandatory   | userId      | user id unique identifier generated from knolskape side.
+mandatory   | link        | url for the Simulation .
+mandatory   | token       | used to give access to the Simulation.
 
 ## Get Simulation Status and Scores - User level
+
+This endpoint retrieves Simulation Status and Scores for a specific user.
 
 > Example Response:
 
@@ -239,8 +245,6 @@ and use another identifier which can't be used to access any simulations (like t
 
 `GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}/user/{{userId}}?platformId=2`
 
-This endpoint retrieves Simulation Status and Scores for a specific user.
-
 ### Query Parameters
 
 Parameter  | Description
@@ -251,19 +255,19 @@ platformId | **(to be filled by knolskape)**
 
 -------     | Parameter   | Description
 ---------   | ---------   | -----------
-mandatory    | serviceName | service name, You can get the service names of simulation in Get All Services api.
+mandatory    | serviceName | service name, which can be acquired in Get All Services API.
 mandatory    | projectIid  | project id from accendo side.
-mandatory    | userId      | user id from accendo side.
+mandatory    | userId      | user id unique identifier generated from knolskape side.
 
 ### Available Status list
 
 Parameter   | Description
 ---------   | -----------
-STARTED     | user started the simulation but not completed yet.
-NOT_STARTED | user rigsterd to simulation but not started yet.
-COMPLETED   | user completed the simulation.
+STARTED     | user has started the simulation but has yet to complete.
+NOT_STARTED | user has been registered to the simulation but has yet to start the simulation.
+COMPLETED   | user has completed the simulation.
 
-### Response  Parameters
+### Response  Fields
 
 Parameter       | Description
 ---------       | -----------
@@ -278,8 +282,10 @@ competency      | **(to be filled by knolskape)**
 rank            | **(to be filled by knolskape)**
 startedAt       | **(to be filled by knolskape)**
 completedAt     | **(to be filled by knolskape)**
-
+**(to be filled by knolskape)** | **(to be filled by knolskape)**
 ## Get Simulation Status and Scores - Project level
+
+This endpoint retrieves Simulation Status and Scores for all users in a specific project. 
 
 > Example Response:
 
@@ -354,8 +360,6 @@ completedAt     | **(to be filled by knolskape)**
 
 `GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}?platformId=2`
 
-This endpoint retrieves Simulation Status and Scores for all Users in a specific Project. 
-
 ### Query Parameters
 
 Parameter  | Description
@@ -366,16 +370,39 @@ platformId | **(to be filled by knolskape)**
 
 -------     | Parameter   | Description
 ---------   | ---------   | -----------
-mandatory    | serviceName | service name, You can get the service names of simulation in Get All Services api.
+mandatory    | serviceName | service name, which can be acquired in Get All Services API.
 mandatory    | projectIid  | project id from accendo side.
 
+
+### Response  Fields
+
+Parameter       | Description
+---------       | -----------
+**(to be filled by knolskape)**     | **(to be filled by knolskape)**
 
 # Simulations Completion
 
 ## Redirect Url
-**(to be filled by Accendo)**
+
+Redirect is a get call to the Redirect URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.
+
+### HTTP Request
+
+`GET {REDIRECT_URL}?userId={userId}&serviceName={serviceName}`
+
+### Query Parameters
+-------     | Parameter       | Description
+---------   | ---------       | ---------
+mandatory   | serviceName     | name of service that user has completed.
+mandatory   | userId          | user id unique identifier generated from knolskape side.
+
 ## Callback Url
-callback is a post call to the callback url provided by accendo during user registration using the <a href="#register-users"> Register Users Api</a>.
+
+Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.
+
+### HTTP Request
+
+`POST {CALLBACK_UR}`
 
 > Example Request:
 
@@ -398,5 +425,5 @@ callback is a post call to the callback url provided by accendo during user regi
 ### Callback Parameters
 -------     | Parameter       | Description
 ---------   | ---------       | ---------
-mandatory    | serviceName     | service name that user completed.
+mandatory    | serviceName     | name of service that user has completed.
 mandatory    | Scores          | **(to be filled by knolskape)**
