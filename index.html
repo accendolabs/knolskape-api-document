@@ -359,12 +359,11 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
   </span><span class="s2">"projectId"</span><span class="p">:</span><span class="w"> </span><span class="mi">125</span><span class="p">,</span><span class="w">
   </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accendouser1@mailinator.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User1"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accendo"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="s2">"http://kaliber.com/redirect"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="s2">"http://kaliber.com/callback?token=f8XvlPhHpBcYVg7Pv9jBXVDDejNLyO12EgqWTomwh3th4tpYFyiORforoeqz"</span><span class="w">
+      </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="s2">"{REDIRECT_URL}"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="s2">"{CALLBACK_UR}"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -440,7 +439,8 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 </tbody></table>
 
 <aside class="notice">
-Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are using the tokenId to give access to Simulations, it's better not to expose this tokenId and use another identifier which can't be used to access any Simulations (like the userId).
+Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
+<a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a>.
 </aside>
 
 <table><thead>
@@ -450,11 +450,6 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <th>Description</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>mandatory</td>
-<td>userId</td>
-<td>user id from accendo side.</td>
-</tr>
 <tr>
 <td>mandatory</td>
 <td>email</td>
@@ -479,6 +474,35 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <td>mandatory</td>
 <td>callbackUrl</td>
 <td>callback url for knolskape to call after user <strong>completes</strong> a simulation. (refer the Callback Parameters table below)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>-------</th>
+<th>Users</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>service</td>
+<td>service name</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>userId</td>
+<td>user id unique identifier generated from knolskape side.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>link</td>
+<td>url for the Simulation .</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>token</td>
+<td>used to give access to the Simulation.</td>
 </tr>
 </tbody></table>
 <h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
@@ -574,7 +598,7 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <tr>
 <td>mandatory</td>
 <td>userId</td>
-<td>user id from accendo side.</td>
+<td>user id unique identifier generated from knolskape side.</td>
 </tr>
 </tbody></table>
 <h3 id='available-status-list'>Available Status list</h3>
@@ -597,7 +621,7 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <td>user has completed the simulation.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters'>Response  Parameters</h3>
+<h3 id='response-fields-2'>Response  Fields</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -646,6 +670,10 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 </tr>
 <tr>
 <td>completedAt</td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+<tr>
+<td><strong>(to be filled by knolskape)</strong></td>
 <td><strong>(to be filled by knolskape)</strong></td>
 </tr>
 </tbody></table>
@@ -752,10 +780,45 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <td>project id from accendo side.</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-3'>Response  Fields</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>(to be filled by knolskape)</strong></td>
+<td><strong>(to be filled by knolskape)</strong></td>
+</tr>
+</tbody></table>
 <h1 id='simulations-completion'>Simulations Completion</h1><h2 id='redirect-url'>Redirect Url</h2>
-<p><strong>(to be filled by Accendo)</strong></p>
+<p>Redirect is a get call to the Redirect URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET {REDIRECT_URL}?userId={userId}&amp;serviceName={serviceName}</code></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>-------</th>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>serviceName</td>
+<td>name of service that user has completed.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>userId</td>
+<td>user id unique identifier generated from knolskape side.</td>
+</tr>
+</tbody></table>
 <h2 id='callback-url'>Callback Url</h2>
 <p>Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST {CALLBACK_UR}</code></p>
 
 <blockquote>
 <p>Example Request:</p>
@@ -784,7 +847,7 @@ Use <b>userId</b> instead of <b>tokenId</b> to identify the user. Since we are u
 <tr>
 <td>mandatory</td>
 <td>serviceName</td>
-<td>name of service that user has completed</td>
+<td>name of service that user has completed.</td>
 </tr>
 <tr>
 <td>mandatory</td>
