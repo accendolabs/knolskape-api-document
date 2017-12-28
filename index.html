@@ -222,6 +222,17 @@
             <a href="#api-flow" class="toc-h1 toc-link" data-title="API Flow">API Flow</a>
           </li>
           <li>
+            <a href="#environments" class="toc-h1 toc-link" data-title="Environments">Environments</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#production" class="toc-h2 toc-link" data-title="Production:">Production:</a>
+                  </li>
+                  <li>
+                    <a href="#staging" class="toc-h2 toc-link" data-title="Staging:">Staging:</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
@@ -244,7 +255,7 @@
                     <a href="#register-users" class="toc-h2 toc-link" data-title="Register Users">Register Users</a>
                   </li>
                   <li>
-                    <a href="#get-simulation-status-and-scores-user-level" class="toc-h2 toc-link" data-title="Get Simulation Status and Scores - User level">Get Simulation Status and Scores - User level</a>
+                    <a href="#get-simulation-status-and-scores" class="toc-h2 toc-link" data-title="Get Simulation Status and Scores">Get Simulation Status and Scores</a>
                   </li>
                   <li>
                     <a href="#get-simulation-status-and-scores-project-level" class="toc-h2 toc-link" data-title="Get Simulation Status and Scores - Project level">Get Simulation Status and Scores - Project level</a>
@@ -269,9 +280,7 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Knolskape API!<br/>
-The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/> <strong>Do feel free to change whatever seems convenient to you.</strong><br/>
-Kindly ensure to fill in the “(to be filled by Knolskape)” sections 
-and feel free to add “(to be filled by Accendo)” as well.</p>
+The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/></p>
 <h1 id='api-flow'>API Flow</h1>
 <p>In Knolskape, you will interact with Simulations and Users (Candidates). Simulations are a set of services. The relationship between Simulations and Users is that <strong>a simulation will have many users.</strong> </p>
 
@@ -283,38 +292,80 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 4) Users log in to Accendo site, Accendo redirects Users to Knolskape site (the simulation page) using the links from <a href="#register-users"> Register Users API</a> response.<br />
 5) Users complete the Simulations.<br />
 6) Knolskape sends a server-side update (Simulation Completion) to Accendo site.<br /> 
-    using the Callback URL provided by accendo during user registration.<br />
+    using the Callback URL provided by Accendo during user registration.<br />
 7) Knolskape redirects (Simulation Completion) Users back to Accendo site <br /> 
-    using the Redirect URL provided by accendo during user registration.<br />
+    using the Redirect URL provided by Accendo during user registration.<br />
 8) Accendo can pull the status and scores using <br /> 
     <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a> or <br /> <a href="#get-simulation-status-and-scores-project-level"> Get Simulation Status and Scores - Project level </a> .<br /></p>
+<h1 id='environments'>Environments</h1>
+<p>KNOLSKAPE supports two environments - production and staging. Token and URL will be dependent on environments. Below are the details</p>
+<h3 id='production'>Production:</h3>
+<table><thead>
+<tr>
+<th>variable</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>apiBaseUrl</td>
+<td>https://api.knolskape.com</td>
+</tr>
+<tr>
+<td>platformId</td>
+<td>2</td>
+</tr>
+<tr>
+<td>apptoken</td>
+<td>to be provided by knolskape.</td>
+</tr>
+</tbody></table>
+<h3 id='staging'>Staging:</h3>
+<p>This is for testing purpose.</p>
+
+<table><thead>
+<tr>
+<th>variable</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>apiBaseUrl</td>
+<td>https://api-test.knolskape.com</td>
+</tr>
+<tr>
+<td>platformId</td>
+<td>2</td>
+</tr>
+<tr>
+<td>apptoken</td>
+<td>to be provided by knolskape.</td>
+</tr>
+</tbody></table>
 <h1 id='authentication'>Authentication</h1>
-<p><strong>(to be filled by knolskape)</strong></p>
+<p>All APIs must have <strong>apptoken</strong> in the header for Authentication.</p>
 
 <blockquote>
 <p>Example Header:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"appId"</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"appSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w">
+      </span><span class="s2">"apptoken"</span><span class="p">:</span><span class="s2">"{token}"</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='header-parameters'>Header Parameters</h3>
+</span></code></pre>
+<blockquote>
+<p>Token for production and staging environment will be given by KNOLSKAPE separately.</p>
+</blockquote>
+<h3 id='header-parameters'>Header Parameters</h3>
 <table><thead>
 <tr>
-<th>-------</th>
+<th>---------</th>
 <th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>mandatory</td>
-<td>appId</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>mandatory</td>
-<td>appSecret</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>apptoken</td>
+<td>Token for authentication</td>
 </tr>
 </tbody></table>
 <h1 id='simulation'>Simulation</h1><h2 id='get-all-simulation'>Get All Simulation</h2>
@@ -338,7 +389,7 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api-test.knolskape.com/ct/simulations</code></p>
+<p><code>GET {apiBaseUrl}/ct/simulations</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -348,10 +399,12 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>{platformId}</td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='register-users'>Register Users</h2>
+<p>This returns the list of links with the custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response JSON. The services inside payload is an array of service names chosen for this given project.</p>
+
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
@@ -381,7 +434,7 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
     </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token1}"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts-test.knolskape.com/ct-simulation?custom_token={custom_token1}"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token1}"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -391,16 +444,14 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
     </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts.knolskape.com/ct-simulation?custom_token={custom_token2}"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://accounts-test.knolskape.com/ct-simulation?custom_token={custom_token2}"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{custom_token2}"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This returns the list of links with custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response json. The Services inside payload is an array of service names chosen for this given project.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://api-test.knolskape.com/ct/simulations/register</code></p>
+</span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST {apiBaseUrl}/ct/simulations/register</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -410,7 +461,7 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>{platformId}</td>
 </tr>
 </tbody></table>
 <h3 id='request-parameters'>Request Parameters</h3>
@@ -424,7 +475,7 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 <tr>
 <td>mandatory</td>
 <td>projectId</td>
-<td>project id from accendo side.</td>
+<td>project id from Accendo side.</td>
 </tr>
 <tr>
 <td>mandatory</td>
@@ -439,7 +490,7 @@ and feel free to add “(to be filled by Accendo)” as well.</p>
 </tbody></table>
 
 <aside class="notice">
-Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
+Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b> to identify the user in given project and service. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
 <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a>.
 </aside>
 
@@ -468,12 +519,12 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 <tr>
 <td>mandatory</td>
 <td>redirectUrl</td>
-<td>redirect url for redirecting back to accendo after completion or when the browser session ends.</td>
+<td>redirect URL (can be unique to project) for redirecting back to Accendo after completion or when the browser session ends. This is common to all users in the project. During redirection, KNOLSKAPE will append userId and serviceName to it.</td>
 </tr>
 <tr>
 <td>mandatory</td>
 <td>callbackUrl</td>
-<td>callback url for knolskape to call after user <strong>completes</strong> a simulation. (refer the Callback Parameters table below)</td>
+<td>callback URL for KNOLSKAPE to call after user <strong>completes</strong> a simulation. (refer the Callback Parameters table below). This is called when the user has finished playing the Simulation. This URL will be unique to project and user.</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields'>Response Fields</h3>
@@ -492,31 +543,85 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 <tr>
 <td>mandatory</td>
 <td>userId</td>
-<td>user id unique identifier generated from knolskape side.</td>
+<td>This is unique to user therefore if the same user is uploaded in more than one project then userId will be same.</td>
 </tr>
 <tr>
 <td>mandatory</td>
 <td>link</td>
-<td>url for the Simulation .</td>
+<td>Url for the Simulation.</td>
 </tr>
 <tr>
 <td>mandatory</td>
 <td>token</td>
-<td>used to give access to the Simulation.</td>
+<td>This is used to give access to the Simulation. This is the unique combination of projectId, serviceName, and userId. If there are M services, N users for a project then the total number of unique tokens will be M * N for that project.</td>
 </tr>
 </tbody></table>
-<h2 id='get-simulation-status-and-scores-user-level'>Get Simulation Status and Scores - User level</h2>
-<p>This endpoint retrieves Simulation Status and Scores for a specific user.</p>
+<h2 id='get-simulation-status-and-scores'>Get Simulation Status and Scores</h2>
+<p>There are two endpoints to retrieve the Scores (metrics) and Status for users. One is to retrieve only for one user or other is to retrieve for particular project and service. Response to both the APIs is same. Apart from some common fields in <strong>metricsData</strong> all fields are dependent on Service hence can be different. </p>
+<h4 id='common-fields'>Common fields</h4>
+<table><thead>
+<tr>
+<th>--</th>
+<th>Fields</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mandatory</td>
+<td>status</td>
+<td>This shows the status of a particular user in particular project and service. Supported values are given in below table.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>started</td>
+<td>Epoch timestamp which shows at what time the user has started playing the simulation.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>completed</td>
+<td>Epoch timestamp which shows at what time the user has completed the simulation.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>userId</td>
+<td>userId of a user to uniquely identify the user.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>token</td>
+<td>token unique to user, project and service.</td>
+</tr>
+</tbody></table>
+<h4 id='available-status-list'>Available Status list</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>STARTED</td>
+<td>user has started the simulation but has yet to complete.</td>
+</tr>
+<tr>
+<td>NOT_STARTED</td>
+<td>user has been registered to the simulation but has yet to start the simulation.</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>user has completed the simulation.</td>
+</tr>
+</tbody></table>
+<h4 id='simulation-specific-fields'>Simulation specific fields.</h4>
+<p>Please refer the excel <a href="http://knol.ly/accendo-simulation-metrics">here</a>.</p>
+<h3 id='user-level'>User level</h3>
+<p>This endpoint retrieves Simulation Status and Scores for a specific user. </p>
 
 <blockquote>
 <p>Example Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rank"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rank"</span><span class="w">
@@ -550,6 +655,9 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
@@ -558,13 +666,12 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
             </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="w">
+
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}/user/{{userId}}?platformId=2</code></p>
+<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=2</code></p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -574,7 +681,7 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>{platformId}</td>
 </tr>
 </tbody></table>
 <h3 id='uri-parameters'>URI Parameters</h3>
@@ -592,103 +699,25 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 </tr>
 <tr>
 <td>mandatory</td>
-<td>projectIid</td>
-<td>project id from accendo side.</td>
+<td>projectIId</td>
+<td>project id from Accendo side.</td>
 </tr>
 <tr>
 <td>mandatory</td>
 <td>userId</td>
-<td>user id unique identifier generated from knolskape side.</td>
-</tr>
-</tbody></table>
-<h3 id='available-status-list'>Available Status list</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>STARTED</td>
-<td>user has started the simulation but has yet to complete.</td>
-</tr>
-<tr>
-<td>NOT_STARTED</td>
-<td>user has been registered to the simulation but has yet to start the simulation.</td>
-</tr>
-<tr>
-<td>COMPLETED</td>
-<td>user has completed the simulation.</td>
+<td>user id unique identifier generated from KNOLSKAPE side.</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-2'>Response  Fields</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>metricsData</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>status</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>avgAdoption</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>progress</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>noOfConversion</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>aggregateScore</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>percentile</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>competency</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>rank</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>startedAt</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td>completedAt</td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-<tr>
-<td><strong>(to be filled by knolskape)</strong></td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-</tbody></table>
+<p>According to the description above.</p>
 <h2 id='get-simulation-status-and-scores-project-level'>Get Simulation Status and Scores - Project level</h2>
-<p>This endpoint retrieves Simulation Status and Scores for all users in a specific project. </p>
+<p>This endpoint retrieves Simulation Status and Scores for all users in a specific project and service. </p>
 
 <blockquote>
 <p>Example Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rank"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rank"</span><span class="w">
@@ -720,20 +749,11 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"metricsData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oBk4PdXHcbGXWcKuNCMnFWCUTTpPnxoA"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZywFBkgDmQtaS8uxB9KaWfUGZcodzCEq"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_STARTED"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
@@ -742,13 +762,42 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
             </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noOfConversion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noOfConversion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}?platformId=2</code></p>
+<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}?platformId=2</code></p>
 <h3 id='query-parameters-4'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -758,7 +807,7 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 </thead><tbody>
 <tr>
 <td>platformId</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>{platformId}</td>
 </tr>
 </tbody></table>
 <h3 id='uri-parameters-2'>URI Parameters</h3>
@@ -776,26 +825,16 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 </tr>
 <tr>
 <td>mandatory</td>
-<td>projectIid</td>
-<td>project id from accendo side.</td>
+<td>projectIId</td>
+<td>project id from Accendo side.</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-3'>Response  Fields</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>(to be filled by knolskape)</strong></td>
-<td><strong>(to be filled by knolskape)</strong></td>
-</tr>
-</tbody></table>
+<h3 id='response-fields-3'>Response Fields</h3>
+<p>According to the description above.</p>
 <h1 id='simulations-completion'>Simulations Completion</h1><h2 id='redirect-url'>Redirect Url</h2>
 <p>Redirect is a get call to the Redirect URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET {REDIRECT_URL}?userId={userId}&amp;serviceName={serviceName}</code></p>
+<p><code>GET {REDIRECT_URL}?userId={userId}&amp;serviceName={serviceName}&amp;projectId={projectId}</code></p>
 <h3 id='query-parameters-5'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -812,13 +851,18 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 <tr>
 <td>mandatory</td>
 <td>userId</td>
-<td>user id unique identifier generated from knolskape side.</td>
+<td>user id unique identifier generated from KNOLSKAPE side.</td>
+</tr>
+<tr>
+<td>mandatory</td>
+<td>projectId</td>
+<td>Accendo project Id.</td>
 </tr>
 </tbody></table>
 <h2 id='callback-url'>Callback Url</h2>
-<p>Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.</p>
+<p>Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>. Note: This is unique to project and user.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
-<p><code>POST {CALLBACK_UR}</code></p>
+<p><code>POST {CALLBACK_URL}</code></p>
 
 <blockquote>
 <p>Example Request:</p>
@@ -826,7 +870,14 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="s2">"iLead"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"Scores"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"noOfConversion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"aggregateScore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.94"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"percentile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"competency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.51"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -851,8 +902,8 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 </tr>
 <tr>
 <td>mandatory</td>
-<td>Scores</td>
-<td><strong>(to be filled by knolskape)</strong></td>
+<td>scores</td>
+<td>dependent on simulation. Please refer <a href="#simulation-specific-fields"> excel mentioned above </a>.</td>
 </tr>
 </tbody></table>
 
