@@ -9,9 +9,7 @@ search: true
 # Introduction
 
 Welcome to the Knolskape API!<br/>
-The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/> **Do feel free to change whatever seems convenient to you.**<br/>
-Kindly ensure to fill in the “(to be filled by Knolskape)” sections 
-and feel free to add “(to be filled by Accendo)” as well.
+The main goal of this documentation is to get Knolskape and Accendo on the same page regarding this API Consuming.<br/>
 
 
 # API Flow
@@ -25,30 +23,56 @@ Kindly refer below for the flow of API usage:
 4) Users log in to Accendo site, Accendo redirects Users to Knolskape site (the simulation page) using the links from <a href="#register-users"> Register Users API</a> response.<br />
 5) Users complete the Simulations.<br />
 6) Knolskape sends a server-side update (Simulation Completion) to Accendo site.<br /> 
-    using the Callback URL provided by accendo during user registration.<br />
+    using the Callback URL provided by Accendo during user registration.<br />
 7) Knolskape redirects (Simulation Completion) Users back to Accendo site <br /> 
-    using the Redirect URL provided by accendo during user registration.<br />
+    using the Redirect URL provided by Accendo during user registration.<br />
 8) Accendo can pull the status and scores using <br /> 
     <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a> or <br /> <a href="#get-simulation-status-and-scores-project-level"> Get Simulation Status and Scores - Project level </a> .<br />
+
+# Environments
+
+KNOLSKAPE supports two environments - production and staging. Token and URL will be dependent on environments. Below are the details
+
+### Production:
+
+variable | value
+---- | ----
+apiBaseUrl | https://api.knolskape.com
+platformId | 2
+apptoken | to be provided by knolskape.
+
+### Staging:
+
+This is for testing purpose.
+
+variable | value
+---- | ----
+apiBaseUrl | https://api-test.knolskape.com
+platformId | 2
+apptoken | to be provided by knolskape.
+
+
+
+
 # Authentication
 
-**(to be filled by knolskape)**
+All APIs must have **apptoken** in the header for Authentication.
 
 > Example Header:
 
 ```json
   {
-      "appId": " ",
-      "appSecret": " "
+      "apptoken":"{token}"
   }
 ```
 
+> Token for production and staging environment will be given by KNOLSKAPE separately.
+
 ### Header Parameters
 
--------     | Parameter   | Description
+---------   | Parameter   | Description
 ---------   | ---------   | -----------
-mandatory    | appId      | **(to be filled by knolskape)**
-mandatory    | appSecret  | **(to be filled by knolskape)**
+mandatory   | apptoken    | Token for authentication
 
 # Simulation
 
@@ -77,18 +101,20 @@ This provides a list of Simulations that have been enabled for Accendo platform.
 
 ### HTTP Request
 
-`GET https://api-test.knolskape.com/ct/simulations`
+`GET {apiBaseUrl}/ct/simulations`
 
 ### Query Parameters
 
 Parameter  | Description
 ---------  | -----------
-platformId | **(to be filled by knolskape)**
+platformId | {platformId}
 
 
 # Users
 
 ## Register Users
+
+This returns the list of links with the custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response JSON. The services inside payload is an array of service names chosen for this given project.
 
 > Example Request:
 
@@ -120,7 +146,7 @@ platformId | **(to be filled by knolskape)**
     "users": [
       {
         "userId": "1",
-        "link": "https://accounts.knolskape.com/ct-simulation?custom_token={custom_token1}",
+        "link": "https://accounts-test.knolskape.com/ct-simulation?custom_token={custom_token1}",
         "token": "{custom_token1}"
       }
     ]
@@ -130,7 +156,7 @@ platformId | **(to be filled by knolskape)**
     "users": [
       {
         "userId": "1",
-        "link": "https://accounts.knolskape.com/ct-simulation?custom_token={custom_token2}",
+        "link": "https://accounts-test.knolskape.com/ct-simulation?custom_token={custom_token2}",
         "token": "{custom_token2}"
       }
     ]
@@ -138,28 +164,27 @@ platformId | **(to be filled by knolskape)**
 ]
 ```
 
-This returns the list of links with custom token in it. These links can be clicked by Users directly to access the Simulations. If a project has M tools (Services) and N Users given in payload, it will return M*N links in the response json. The Services inside payload is an array of service names chosen for this given project.
-
 ### HTTP Request
 
-`POST https://api-test.knolskape.com/ct/simulations/register`
+`POST {apiBaseUrl}/ct/simulations/register`
 
 ### Query Parameters
 
 Parameter  | Description
 ---------  | -----------
-platformId | **(to be filled by knolskape)**
+platformId | {platformId}
 
 ### Request Parameters
 
 -------     | Parameter   | Description
 ---------   | ---------   | -----------
-mandatory    | projectId   | project id from accendo side.
+mandatory    | projectId   | project id from Accendo side.
 mandatory    | users       | list of users to be registered. (refer to the table below)
 mandatory    | services    | list of services names to register the users to, service names of simulation can be acquired in Get All Services API.
 
+
 <aside class="notice">
-Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
+Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b> to identify the user in given project and service. Since we are using the token to give access to Simulations, it's better not to expose this token and use another identifier which can't be used to access any Simulations (like the userId). userId will be used to check simulation status and get scores using 
 <a href="#get-simulation-status-and-scores-user-level"> Get Simulation Status and Scores - Candidate level</a>.
 </aside>
 
@@ -168,31 +193,55 @@ Use <b>userId</b> instead of <b>token</b> to identify the user. Since we are usi
 mandatory   | email       | user email.
 optional    | firstName   | user first name.
 optional    | lastName    | user last name.
-mandatory   | redirectUrl | redirect url for redirecting back to accendo after completion or when the browser session ends.
-mandatory   | callbackUrl | callback url for knolskape to call after user **completes** a simulation. (refer the Callback Parameters table below)
+mandatory   | redirectUrl | redirect URL (can be unique to project) for redirecting back to Accendo after completion or when the browser session ends. This is common to all users in the project. During redirection, KNOLSKAPE will append userId and serviceName to it.
+mandatory   | callbackUrl | callback URL for KNOLSKAPE to call after user **completes** a simulation. (refer the Callback Parameters table below). This is called when the user has finished playing the Simulation. This URL will be unique to project and user.
 
 ### Response Fields
 
 -------     | Users       | Description
 ---------   | ---------   | -----------
 mandatory   | service     | service name
-mandatory   | userId      | user id unique identifier generated from knolskape side.
-mandatory   | link        | url for the Simulation .
-mandatory   | token       | used to give access to the Simulation.
+mandatory   | userId      | This is unique to user therefore if the same user is uploaded in more than one project then userId will be same.
+mandatory   | link        | Url for the Simulation.
+mandatory   |token        | This is used to give access to the Simulation. This is the unique combination of projectId, serviceName, and userId. If there are M services, N users for a project then the total number of unique tokens will be M * N for that project.
 
-## Get Simulation Status and Scores - User level
 
-This endpoint retrieves Simulation Status and Scores for a specific user.
+## Get Simulation Status and Scores 
+
+There are two endpoints to retrieve the Scores (metrics) and Status for users. One is to retrieve only for one user or other is to retrieve for particular project and service. Response to both the APIs is same. Apart from some common fields in **metricsData** all fields are dependent on Service hence can be different. 
+
+#### Common fields 
+
+
+-- | Fields | Description 
+--------| ------ | -----------
+mandatory  | status | This shows the status of a particular user in particular project and service. Supported values are given in below table.
+mandatory  | started | Epoch timestamp which shows at what time the user has started playing the simulation.
+mandatory  | completed | Epoch timestamp which shows at what time the user has completed the simulation.
+mandatory  | userId | userId of a user to uniquely identify the user.
+mandatory  | token  | token unique to user, project and service.
+
+#### Available Status list
+
+Parameter   | Description
+---------   | -----------
+STARTED     | user has started the simulation but has yet to complete.
+NOT_STARTED | user has been registered to the simulation but has yet to start the simulation.
+COMPLETED   | user has completed the simulation.
+
+#### Simulation specific fields.
+
+Please refer the excel <a href="http://knol.ly/accendo-simulation-metrics">here</a>.
+
+### User level
+
+This endpoint retrieves Simulation Status and Scores for a specific user. 
 
 > Example Response:
 
 ```json
 {
     "metrics": [
-        {
-            "key": "status",
-            "name": "Status"
-        },
         {
             "key": "rank",
             "name": "Rank"
@@ -226,6 +275,9 @@ This endpoint retrieves Simulation Status and Scores for a specific user.
         {
             "tokenId": "BnUny897Ywna3ezJzef8RuhxaNbUboxD",
             "status": "COMPLETED",
+            "startedAt": 1505128287,
+            "completedAt": 1605128302,
+            "userId":1,
             "timeLeft": "88:21",
             "avgAdoption": "24.33",
             "progress": "14",
@@ -234,8 +286,7 @@ This endpoint retrieves Simulation Status and Scores for a specific user.
             "percentile": "7.51",
             "competency": "7.51",
             "rank": 1,
-            "startedAt": 1505128287,
-            "completedAt": 1605128302
+            
         }
     ]
 }
@@ -243,59 +294,38 @@ This endpoint retrieves Simulation Status and Scores for a specific user.
 
 ### HTTP Request
 
-`GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}/user/{{userId}}?platformId=2`
+`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=2`
 
 ### Query Parameters
 
 Parameter  | Description
 ---------  | -----------
-platformId | **(to be filled by knolskape)**
+platformId | {platformId}
 
 ### URI Parameters
 
 -------     | Parameter   | Description
 ---------   | ---------   | -----------
 mandatory    | serviceName | service name, which can be acquired in Get All Services API.
-mandatory    | projectIid  | project id from accendo side.
-mandatory    | userId      | user id unique identifier generated from knolskape side.
+mandatory    | projectIId  | project id from Accendo side.
+mandatory    | userId      | user id unique identifier generated from KNOLSKAPE side.
 
-### Available Status list
 
-Parameter   | Description
----------   | -----------
-STARTED     | user has started the simulation but has yet to complete.
-NOT_STARTED | user has been registered to the simulation but has yet to start the simulation.
-COMPLETED   | user has completed the simulation.
 
 ### Response  Fields
 
-Parameter       | Description
----------       | -----------
-metricsData     | **(to be filled by knolskape)**
-status          | **(to be filled by knolskape)**
-avgAdoption     | **(to be filled by knolskape)**
-progress        | **(to be filled by knolskape)**
-noOfConversion  | **(to be filled by knolskape)**
-aggregateScore  | **(to be filled by knolskape)**
-percentile      | **(to be filled by knolskape)**
-competency      | **(to be filled by knolskape)**
-rank            | **(to be filled by knolskape)**
-startedAt       | **(to be filled by knolskape)**
-completedAt     | **(to be filled by knolskape)**
-**(to be filled by knolskape)** | **(to be filled by knolskape)**
+According to the description above.
+
+
 ## Get Simulation Status and Scores - Project level
 
-This endpoint retrieves Simulation Status and Scores for all users in a specific project. 
+This endpoint retrieves Simulation Status and Scores for all users in a specific project and service. 
 
 > Example Response:
 
 ```json
 {
     "metrics": [
-        {
-            "key": "status",
-            "name": "Status"
-        },
         {
             "key": "rank",
             "name": "Rank"
@@ -327,20 +357,11 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
     ],
     "metricsData": [
         {
-            "tokenId": "oBk4PdXHcbGXWcKuNCMnFWCUTTpPnxoA",
-            "status": "STARTED",
-            "startedAt": null,
-            "completedAt": null
-        },
-        {
-            "tokenId": "ZywFBkgDmQtaS8uxB9KaWfUGZcodzCEq",
-            "status": "NOT_STARTED",
-            "startedAt": null,
-            "completedAt": null
-        },
-        {
-            "tokenId": "BnUny897Ywna3ezJzef8RuhxaNbUboxD",
-            "status": "STARTED",
+            "tokenId": "OnUny897Ywna3ezJzef8RuhxaNbUboxD",
+            "status": "COMPLETED",
+            "started": "",
+            "completed": "",
+            "userId":1,
             "timeLeft": "88:21",
             "avgAdoption": "24.33",
             "progress": "14",
@@ -349,8 +370,37 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
             "percentile": "7.51",
             "competency": "7.51",
             "rank": 1,
-            "startedAt": 1505128287,
-            "completedAt": null
+
+        },
+        {
+            "tokenId": "AnUny897Ywna3ezJzef8RuhxaNbUboxD",
+            "status": "NOT_STARTED",
+            "started": null,
+            "completed": null,
+            "userId":1,
+            "timeLeft": "88:21",
+            "avgAdoption": "24.33",
+            "progress": "14",
+            "noOfConversion": "1",
+            "aggregateScore": "20.94",
+            "percentile": "7.51",
+            "competency": "7.51",
+            "rank": 1,
+        },
+        {
+            "tokenId": "BnUny897Ywna3ezJzef8RuhxaNbUboxD",
+            "status": "STARTED",
+            "started": 1505128287,
+            "completed": 1605128302,
+            "userId":1,
+            "timeLeft": "88:21",
+            "avgAdoption": "24.33",
+            "progress": "14",
+            "noOfConversion": "1",
+            "aggregateScore": "20.94",
+            "percentile": "7.51",
+            "competency": "7.51",
+            "rank": 1,
         },
     ]
 }
@@ -358,27 +408,25 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
 
 ### HTTP Request
 
-`GET https://api-test.knolskape.com/ct/simulation/{{serviceName}}/metrics/project/{{projectIid}}?platformId=2`
+`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}?platformId=2`
 
 ### Query Parameters
 
 Parameter  | Description
 ---------  | -----------
-platformId | **(to be filled by knolskape)**
+platformId | {platformId}
 
 ### URI Parameters
 
 -------     | Parameter   | Description
 ---------   | ---------   | -----------
 mandatory    | serviceName | service name, which can be acquired in Get All Services API.
-mandatory    | projectIid  | project id from accendo side.
+mandatory    | projectIId  | project id from Accendo side.
 
 
-### Response  Fields
+### Response Fields
 
-Parameter       | Description
----------       | -----------
-**(to be filled by knolskape)**     | **(to be filled by knolskape)**
+According to the description above.
 
 # Simulations Completion
 
@@ -388,21 +436,22 @@ Redirect is a get call to the Redirect URL provided by Accendo during user regis
 
 ### HTTP Request
 
-`GET {REDIRECT_URL}?userId={userId}&serviceName={serviceName}`
+`GET {REDIRECT_URL}?userId={userId}&serviceName={serviceName}&projectId={projectId}`
 
 ### Query Parameters
 -------     | Parameter       | Description
 ---------   | ---------       | ---------
 mandatory   | serviceName     | name of service that user has completed.
-mandatory   | userId          | user id unique identifier generated from knolskape side.
+mandatory   | userId          | user id unique identifier generated from KNOLSKAPE side.
+mandatory   | projectId       | Accendo project Id. 
 
 ## Callback Url
 
-Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>.
+Callback is a post call to the Callback URL provided by Accendo during user registration using the <a href="#register-users"> Register Users API</a>. Note: This is unique to project and user.
 
 ### HTTP Request
 
-`POST {CALLBACK_UR}`
+`POST {CALLBACK_URL}`
 
 > Example Request:
 
@@ -410,7 +459,14 @@ Callback is a post call to the Callback URL provided by Accendo during user regi
 {
     "serviceName":"iLead",
     "Scores":{
+        "timeLeft": "88:21",
+        "avgAdoption": "24.33",
+        "progress": "14",
+        "noOfConversion": "1",
         "aggregateScore": "20.94",
+        "percentile": "7.51",
+        "competency": "7.51",
+        "rank": 1,
     }
 }
 ```
@@ -426,4 +482,4 @@ Callback is a post call to the Callback URL provided by Accendo during user regi
 -------     | Parameter       | Description
 ---------   | ---------       | ---------
 mandatory    | serviceName     | name of service that user has completed.
-mandatory    | Scores          | **(to be filled by knolskape)**
+mandatory    | scores          | dependent on simulation. Please refer <a href="#simulation-specific-fields"> excel mentioned above </a>.
