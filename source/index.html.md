@@ -458,7 +458,7 @@ Callback is a post call to the Callback URL provided by Accendo during user regi
 ```json
 {
     "serviceName":"iLead",
-    "Scores":{
+    "scores":{
         "timeLeft": "88:21",
         "avgAdoption": "24.33",
         "progress": "14",
