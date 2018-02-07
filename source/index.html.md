@@ -38,7 +38,7 @@ KNOLSKAPE supports two environments - production and staging. Token and URL will
 variable | value
 ---- | ----
 apiBaseUrl | https://api.knolskape.com
-platformId | 2
+platformId | 7
 apptoken | to be provided by knolskape.
 
 ### Staging:
@@ -48,7 +48,7 @@ This is for testing purpose.
 variable | value
 ---- | ----
 apiBaseUrl | https://api-test.knolskape.com
-platformId | 2
+platformId | 7
 apptoken | to be provided by knolskape.
 
 
@@ -127,7 +127,7 @@ This returns the list of links with the custom token in it. These links can be c
       "firstName": "User1",
       "lastName": "Accendo",
       "redirectUrl":"{REDIRECT_URL}",
-      "callbackUrl":"{CALLBACK_UR}"
+      "callbackUrl":"{CALLBACK_URL}"
     }
   ],
   "services": [
@@ -216,8 +216,8 @@ There are two endpoints to retrieve the Scores (metrics) and Status for users. O
 -- | Fields | Description 
 --------| ------ | -----------
 mandatory  | status | This shows the status of a particular user in particular project and service. Supported values are given in below table.
-mandatory  | started | Epoch timestamp which shows at what time the user has started playing the simulation.
-mandatory  | completed | Epoch timestamp which shows at what time the user has completed the simulation.
+mandatory  | startedAt | Epoch timestamp which shows at what time the user has started playing the simulation.
+mandatory  | completedAt | Epoch timestamp which shows at what time the user has completed the simulation.
 mandatory  | userId | userId of a user to uniquely identify the user.
 mandatory  | token  | token unique to user, project and service.
 
@@ -294,7 +294,7 @@ This endpoint retrieves Simulation Status and Scores for a specific user.
 
 ### HTTP Request
 
-`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=2`
+`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=7`
 
 ### Query Parameters
 
@@ -359,8 +359,8 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
         {
             "tokenId": "OnUny897Ywna3ezJzef8RuhxaNbUboxD",
             "status": "COMPLETED",
-            "started": "",
-            "completed": "",
+            "startedAt": "",
+            "completedAt": "",
             "userId":1,
             "timeLeft": "88:21",
             "avgAdoption": "24.33",
@@ -375,8 +375,8 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
         {
             "tokenId": "AnUny897Ywna3ezJzef8RuhxaNbUboxD",
             "status": "NOT_STARTED",
-            "started": null,
-            "completed": null,
+            "startedAt": null,
+            "completedAt": null,
             "userId":1,
             "timeLeft": "88:21",
             "avgAdoption": "24.33",
@@ -390,8 +390,8 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
         {
             "tokenId": "BnUny897Ywna3ezJzef8RuhxaNbUboxD",
             "status": "STARTED",
-            "started": 1505128287,
-            "completed": 1605128302,
+            "startedAt": 1505128287,
+            "completedAt": 1605128302,
             "userId":1,
             "timeLeft": "88:21",
             "avgAdoption": "24.33",
@@ -408,7 +408,7 @@ This endpoint retrieves Simulation Status and Scores for all users in a specific
 
 ### HTTP Request
 
-`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}?platformId=2`
+`GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectId}?platformId=7`
 
 ### Query Parameters
 
