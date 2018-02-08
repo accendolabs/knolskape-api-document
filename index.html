@@ -312,7 +312,7 @@ The main goal of this documentation is to get Knolskape and Accendo on the same 
 </tr>
 <tr>
 <td>platformId</td>
-<td>2</td>
+<td>7</td>
 </tr>
 <tr>
 <td>apptoken</td>
@@ -334,7 +334,7 @@ The main goal of this documentation is to get Knolskape and Accendo on the same 
 </tr>
 <tr>
 <td>platformId</td>
-<td>2</td>
+<td>7</td>
 </tr>
 <tr>
 <td>apptoken</td>
@@ -416,7 +416,7 @@ The main goal of this documentation is to get Knolskape and Accendo on the same 
       </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User1"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accendo"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="s2">"{REDIRECT_URL}"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="s2">"{CALLBACK_UR}"</span><span class="w">
+      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="s2">"{CALLBACK_URL}"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -573,12 +573,12 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
 </tr>
 <tr>
 <td>mandatory</td>
-<td>started</td>
+<td>startedAt</td>
 <td>Epoch timestamp which shows at what time the user has started playing the simulation.</td>
 </tr>
 <tr>
 <td>mandatory</td>
-<td>completed</td>
+<td>completedAt</td>
 <td>Epoch timestamp which shows at what time the user has completed the simulation.</td>
 </tr>
 <tr>
@@ -671,7 +671,7 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=2</code></p>
+<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}/user/{userId}?platformId=7</code></p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -751,8 +751,8 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
             </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
@@ -767,8 +767,8 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_STARTED"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
@@ -782,8 +782,8 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BnUny897Ywna3ezJzef8RuhxaNbUboxD"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"started"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1505128287</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1605128302</span><span class="p">,</span><span class="w">
             </span><span class="s2">"userId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
@@ -797,7 +797,7 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectIid}?platformId=2</code></p>
+<p><code>GET {apiBaseUrl}/ct/simulation/{serviceName}/metrics/project/{projectId}?platformId=7</code></p>
 <h3 id='query-parameters-4'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -869,7 +869,7 @@ Use <b>userId</b> (along with projectId and serviceName) instead of <b>token</b>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="s2">"iLead"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Scores"</span><span class="p">:{</span><span class="w">
+    </span><span class="s2">"scores"</span><span class="p">:{</span><span class="w">
         </span><span class="s2">"timeLeft"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88:21"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"avgAdoption"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24.33"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
